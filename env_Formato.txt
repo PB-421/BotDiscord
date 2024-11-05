@@ -1,0 +1,2 @@
+TOKEN= Token del bot
+CHANNEL_ID= id del canal
