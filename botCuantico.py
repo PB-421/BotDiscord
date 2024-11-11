@@ -40,16 +40,15 @@ async def enviar_recordatorios():
     while not bot.is_closed():
         fecha_actual = datetime.now().strftime('%Y-%m-%d')
         hora_actual = datetime.now().hour
+        minuto_actual = datetime.now().minute
         
-        if 6 <= hora_actual <= 23:
-            for recordatorio in recordatorios:
-                if recordatorio['fecha'] == fecha_actual:
-                    await canal.send(f"@everyone, {recordatorio['mensaje']}")
-                    if "Examen" or "examen" in recordatorio['mensaje']:
-                        respuesta = random.choice(frases_random)
-                        await canal.send(respuesta)
-
-        await asyncio.sleep(21600)  # Espera 6 horas antes de verificar nuevamente
+        if (hora_actual == 9 or hora_actual == 15 or hora_actual == 21) and minuto_actual == 0:
+                for recordatorio in recordatorios:
+                    if recordatorio['fecha'] == fecha_actual:
+                        await canal.send(f"@everyone, {recordatorio['mensaje']}")
+                        await asyncio.sleep(60)
+            
+        await asyncio.sleep(5)  # Espera 5 segundos para volver a comprobar
 
 
 @bot.event
