@@ -41,12 +41,15 @@ async def enviar_recordatorios():
         fecha_actual = datetime.now().strftime('%Y-%m-%d')
         hora_actual = datetime.now().hour
         minuto_actual = datetime.now().minute
-        
-        if (hora_actual == 9 or hora_actual == 15 or hora_actual == 21) and minuto_actual == 0:
+        sent = False
+
+        if (hora_actual == 9 or hora_actual == 15 or hora_actual == 22) and minuto_actual == 0:
                 for recordatorio in recordatorios:
                     if recordatorio['fecha'] == fecha_actual:
                         await canal.send(f"@everyone, {recordatorio['mensaje']}")
-                        await asyncio.sleep(60)
+                        sent = True
+                if (sent):
+                    await asyncio.sleep(60)
             
         await asyncio.sleep(5)  # Espera 5 segundos para volver a comprobar
 
