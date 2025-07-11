@@ -28,7 +28,7 @@ with open('recordatorios.json','r') as file:
 
 with open('frases.json','r') as file2:
   frases_random = json.load(file2)
-# Carga la lista de frases
+# Carga la lista de frases    
 
 async def enviar_recordatorios():
     await bot.wait_until_ready()
